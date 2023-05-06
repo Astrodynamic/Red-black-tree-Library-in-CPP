@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_SOURCE_RBTITERATOR_TPP_
-#define SRC_INCLUDE_SOURCE_RBTITERATOR_TPP_
+#ifndef RBTREE_INCLUDE_RBTITERATOR_INC_
+#define RBTREE_INCLUDE_RBTITERATOR_INC_
 
 template <class T>
 class RBTree<T>::iterator {
@@ -8,12 +8,12 @@ class RBTree<T>::iterator {
  private:
   RBTNode<T> *node_ = nullptr;
   RBTNode<T> *m_root = nullptr;
-  bool is_end_ = false;
+  bool m_is_end = false;
 
  protected:
-  iterator(bool is_end, RBTNode<T> *root) : m_root(root), is_end_(is_end) {}
+  iterator(bool is_end, RBTNode<T> *root) : m_root(root), m_is_end(is_end) {}
   iterator(RBTNode<T> *node, RBTNode<T> *root)
-      : node_(node), m_root(root), is_end_(false) {}
+      : node_(node), m_root(root), m_is_end(false) {}
 
  public:
   iterator() = default;
@@ -24,7 +24,7 @@ class RBTree<T>::iterator {
     auto next = get_next(node_);
     node_ = next;
     if (next == nullptr) {
-      is_end_ = true;
+      m_is_end = true;
     }
     return *this;
   }
@@ -34,15 +34,15 @@ class RBTree<T>::iterator {
     auto next = get_next(node_);
     node_ = next;
     if (next == nullptr) {
-      is_end_ = true;
+      m_is_end = true;
     }
     return state;
   }
 
   iterator operator--() {
-    if (is_end_) {
+    if (m_is_end) {
       node_ = get_tree_max(m_root);
-      is_end_ = false;
+      m_is_end = false;
     } else {
       node_ = get_prev(node_);
     }
@@ -51,9 +51,9 @@ class RBTree<T>::iterator {
 
   iterator operator--(int) {
     auto state = *this;
-    if (is_end_) {
+    if (m_is_end) {
       node_ = get_tree_max(m_root);
-      is_end_ = false;
+      m_is_end = false;
     } else {
       node_ = get_prev(node_);
     }
@@ -66,10 +66,10 @@ class RBTree<T>::iterator {
 
   bool operator==(const iterator &other) const {
     return other.m_root == m_root && other.node_ == node_ &&
-           other.is_end_ == is_end_;
+           other.m_is_end == m_is_end;
   }
 
   bool operator!=(const iterator &other) const { return !(other == *this); }
 };
 
-#endif  // SRC_INCLUDE_SOURCE_RBTITERATOR_TPP_
+#endif  // RBTREE_INCLUDE_RBTITERATOR_INC_

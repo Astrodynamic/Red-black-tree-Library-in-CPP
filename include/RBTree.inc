@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_SOURCE_RBTREE_TPP_
-#define SRC_INCLUDE_SOURCE_RBTREE_TPP_
+#ifndef RBTREE_INCLUDE_RBTREE_INC_
+#define RBTREE_INCLUDE_RBTREE_INC_
 
 template <class T>
 RBTNode<T> *RBTree<T>::get_parent(RBTNode<T> *root) {
@@ -544,4 +544,4 @@ RBTree<T>::~RBTree() {
     clear();
   }
 }
-#endif  // SRC_INCLUDE_SOURCE_RBTREE_TPP_
+#endif  // RBTREE_INCLUDE_RBTREE_INC_
